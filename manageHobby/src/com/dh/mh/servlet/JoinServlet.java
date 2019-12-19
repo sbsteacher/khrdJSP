@@ -46,6 +46,10 @@ public class JoinServlet extends HttpServlet {
 		System.out.println("upw.length" + upw.length());
 		
 		MemberVO param = new MemberVO();
+		param.setUid(uid);
+		param.setUpw(upw);
+		param.setUsex(MyUtils.parseStringToInt(usex, 0));
+		param.setUnm(unm);
 		
 		int result = DBApi.join(param);
 		if(result == 1) { //(회원가입 성공) login 페이지로 가야됨

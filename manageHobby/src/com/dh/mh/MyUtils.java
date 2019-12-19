@@ -4,7 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MyUtils {
-
+	public static int parseStringToInt(String val, int def) {
+		int result = def;
+		try {
+			result = Integer.parseInt(val);
+		} catch(Exception e) {}
+		return result;
+	}
+	
 	public static String encryptSHA256(String str) {
 		String sha;
 		try {
