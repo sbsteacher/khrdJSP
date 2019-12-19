@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%
- 	String msg = (String)request.getAttribute("msg");
- %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,16 +12,15 @@
 <body>
 	<div id="container">
 		<div id="formContainer">			
-			<% if(msg != null) { %>
-				<div class="warning"><%=msg %></div>
-			<% } %>
+			<c:if test="${msg != null}">
+				<div class="warning">${msg}</div>
+			</c:if>
 			<form id="frm" action="login" method="post" onsubmit="return chk()">
 				<div>아이디 : <input type="text" name="uid" value="mic"></div>
 				<div>비밀번호 : <input type="password" name="upw" value="1212"></div>
 				<div><input type="submit" value="Login"></div>
 			</form>
-			<a href="join">회원가입</a>
-			
+			<a href="join">회원가입</a>			
 		</div>
 	</div>
 	<script>
