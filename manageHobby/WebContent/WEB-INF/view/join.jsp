@@ -25,6 +25,7 @@
 					<label>남성 <input type="radio" name="usex" value="2"></label>					
 				</div>
 				<div>이름: <input type="text" name="unm"></div>
+				<div>연락처: <input type="tel" name="uphone"></div>
 				<div><input type="submit" value="Join"></div>
 			</form>
 			<a href="login">로그인창</a>
@@ -47,6 +48,10 @@
 			} else if(frm.unm.value == '') {
 				alert('이름을 작성해 주세요!!')
 				frm.unm.focus()
+				return false
+			} else if(frm.uphone.value == '') {
+				alert('연락처를 작성해 주세요!!')
+				frm.uphone.focus()
 				return false
 			}
 		}

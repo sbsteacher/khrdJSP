@@ -29,7 +29,7 @@ public class JoinServlet extends HttpServlet {
 		String reupw = request.getParameter("reupw");
 		String usex = request.getParameter("usex");
 		String unm = request.getParameter("unm");
-		
+		String uphone = request.getParameter("uphone");
 		/*
 		boolean trouble = false;
 		trouble = true;
@@ -50,12 +50,14 @@ public class JoinServlet extends HttpServlet {
 		param.setUpw(upw);
 		param.setUsex(MyUtils.parseStringToInt(usex, 0));
 		param.setUnm(unm);
+		param.setUphone(uphone);
 		
 		int result = DBApi.join(param);
 		if(result == 1) { //(회원가입 성공) login 페이지로 가야됨
 			response.sendRedirect("login");
 		} else { //join페이지로 가야됨
-			
+			request.setAttribute("msg", "회원가입에 실패하였습니다.");
+			doGet(request, response);
 		}
 	}
 }

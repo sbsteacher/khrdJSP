@@ -27,5 +27,7 @@ a {
 	border: 1px solid #bdc3c7;
 }
 
-
+.warning {
+	color: red;
+}
 
