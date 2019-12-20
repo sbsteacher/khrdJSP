@@ -67,6 +67,14 @@ public class DBApi {
 					result = 2;
 				}
 				
+				int i_member = rs.getInt("i_member");
+				int usex = rs.getInt("usex");
+				String unm = rs.getString("unm");
+				param.setUpw(null);
+				param.setI_member(i_member);
+				param.setUsex(usex);
+				param.setUnm(unm);
+				
 			} else { //아이디 없음
 				result = 3;
 			}
