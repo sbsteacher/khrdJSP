@@ -79,6 +79,15 @@ li a:hover {
 	font-size: 0.7rem;
 }
 
+#tempContainer #sectionContainer {
+	height: 100%;
+	display: flex;	
+}
+
+#tempContainer #sectionContainer #right {
+	flex-grow: 1;
+	border-left: 1px solid #333;
+}
 
 
 

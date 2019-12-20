@@ -1,38 +1,27 @@
 package com.dh.mh.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/cHobby")
+public class CHobbyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("title", "Home");
-		request.setAttribute("view", "home");
+		request.setAttribute("title", "취미 등록");
+		request.setAttribute("view", "cHobby");
 		
 		request.getRequestDispatcher("WEB-INF/view/template.jsp")
 		.forward(request, response);
 	}
 
-	//로그아웃
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession hs = request.getSession();
-		hs.invalidate();
-		response.sendRedirect("login");
+
 	}
 
 }
-
-
-
-
-
-
-

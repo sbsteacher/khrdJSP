@@ -16,8 +16,8 @@
 				<div class="warning">${msg}</div>
 			</c:if>
 			<form id="frm" action="login" method="post" onsubmit="return chk()">
-				<div>아이디 : <input type="text" name="uid"></div>
-				<div>비밀번호 : <input type="password" name="upw"></div>
+				<div>아이디 : <input type="text" name="uid" value="mic"></div>
+				<div>비밀번호 : <input type="password" name="upw" value="1212"></div>
 				<div><input type="submit" value="Login"></div>
 			</form>
 			<a href="join">회원가입</a>			
