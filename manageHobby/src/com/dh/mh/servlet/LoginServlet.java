@@ -18,6 +18,12 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute("loginUser") != null) {
+			response.sendRedirect("home");
+			return;
+		}
+		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/login.jsp");
 		rd.forward(request, response);
 	}
@@ -40,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession hs = request.getSession();			
 			hs.setAttribute("loginUser", param);
 			
+		
 			response.sendRedirect("home");
 		} else {
 			String msg = null;

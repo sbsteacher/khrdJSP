@@ -67,7 +67,7 @@ li a:hover {
 }
 
 #tempContainer > section {
-	flex-grow: 1;
+	flex-grow: 1;	
 }
 
 #tempContainer > footer {

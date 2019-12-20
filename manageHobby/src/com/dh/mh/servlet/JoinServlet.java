@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dh.mh.MyUtils;
 import com.dh.mh.db.DBApi;
@@ -16,7 +17,12 @@ import com.dh.mh.vo.MemberVO;
 public class JoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute("loginUser") != null) {
+			response.sendRedirect("home");
+			return;
+		}
 		request.getRequestDispatcher("WEB-INF/view/join.jsp")
 		.forward(request, response);
 	}
