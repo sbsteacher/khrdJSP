@@ -6,8 +6,11 @@ import static com.dh.mh.db.DBCon.getCon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.dh.mh.MyUtils;
+import com.dh.mh.vo.HobbyVO;
 import com.dh.mh.vo.MemberVO;
 
 public class DBApi {
@@ -88,6 +91,89 @@ public class DBApi {
 		
 		
 		return result;
+	}
+	
+	public static int createHobby(HobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " INSERT INTO t_hobby (hnm) VALUES (?) ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getHnm());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
+	
+	public static int delHobby(HobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " DELETE FROM t_hobby WHERE i_hobby = ? ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getI_hobby());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
+	
+	public static List<HobbyVO> getHobbyList() {
+		List<HobbyVO> list = new ArrayList();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT * FROM t_hobby ORDER BY i_hobby ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int i_hobby = rs.getInt("i_hobby");
+				String hnm = rs.getString("hnm");
+				
+				HobbyVO vo = new HobbyVO();
+				vo.setI_hobby(i_hobby);
+				vo.setHnm(hnm);
+				
+				list.add(vo);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return list;
 	}
 }
 

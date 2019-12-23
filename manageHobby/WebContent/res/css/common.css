@@ -83,8 +83,12 @@ li a:hover {
 	height: 100%;
 	display: flex;	
 }
-
+#tempContainer #sectionContainer #left {
+	padding: 15px;
+}
+	
 #tempContainer #sectionContainer #right {
+	padding: 15px;
 	flex-grow: 1;
 	border-left: 1px solid #333;
 }
