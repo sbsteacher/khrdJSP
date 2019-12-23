@@ -17,6 +17,8 @@ public class CMemberHobby extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("mhList", DBApi.getMemberHobbyList());
+		
 		request.setAttribute("memberList", DBApi.getMemberList());
 		request.setAttribute("hobbyList", DBApi.getHobbyList());
 		

@@ -8,7 +8,20 @@
 </style>    
 <div id="sectionContainer">
 	<div id="left">
-	
+		<table>
+			<tr>
+				<th>이름</th>
+				<th>취미</th>
+				<th>삭제</th>
+			</tr>
+			<c:forEach var="item" items="${mhList}">
+				<tr>
+					<td>${item.unm }</td>
+					<td>${item.hnm }</td>
+					<td><button>삭제</button></td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 	<div id="right">
 			<c:if test="${msg != null }">
