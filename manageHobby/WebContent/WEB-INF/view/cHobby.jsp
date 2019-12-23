@@ -40,7 +40,7 @@
 		frm.submit()
 	}
 
-	function chk() {
+	function chk() {		
 		if(frm.hnm.value.length == 0) {
 			alert('취미명을 작성해 주세요')
 			frm.hnm.focus()

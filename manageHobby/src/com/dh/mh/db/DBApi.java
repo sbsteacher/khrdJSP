@@ -11,7 +11,9 @@ import java.util.List;
 
 import com.dh.mh.MyUtils;
 import com.dh.mh.vo.HobbyVO;
+import com.dh.mh.vo.MemberHobbyVO;
 import com.dh.mh.vo.MemberVO;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class DBApi {
 	
@@ -174,6 +176,68 @@ public class DBApi {
 		}
 		
 		return list;
+	}
+	
+	public static List<MemberVO> getMemberList() {
+		List<MemberVO> list = new ArrayList();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT * FROM t_member ORDER BY i_member ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				MemberVO vo  = new MemberVO();
+				vo.setI_member(rs.getInt("i_member"));
+				vo.setUnm(rs.getString("unm"));
+				
+				list.add(vo);
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return list;
+	}
+	
+	//1:등록 성공, 0:에러, 2:중복된 자료가 있음
+	public static int regMemberHobby(MemberHobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " INSERT INTO t_member_hobby "
+					+ " (i_member, i_hobby) "
+					+ " VALUES "
+					+ " (?, ?) ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getI_member());
+			ps.setInt(2, param.getI_hobby());
+			
+			result = ps.executeUpdate();
+			
+		} catch(MySQLIntegrityConstraintViolationException e) {
+			result = 2;
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
 	}
 }
 
