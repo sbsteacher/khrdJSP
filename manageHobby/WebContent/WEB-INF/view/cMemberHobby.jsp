@@ -47,11 +47,8 @@
 				</div>
 				<div>
 					취미 : 
-					<select name="i_hobby">
-						<option value="0">--선택--</option>
-						<c:forEach var="item" items="${hobbyList}">
-							<option value="${item.i_hobby }">${item.hnm }</option>
-						</c:forEach>						
+					<select name="i_hobby">		
+						<option value="0">--선택--</option>	
 					</select>
 				</div>
 				<div>
@@ -71,7 +68,13 @@
 		axios.get('mhJson?i_member=' + v).then(function(result) {
 			
 			var data = result.data
-			console.log(JSON.stringify(data))
+			
+			var html = '<option value="0">--선택--</option>'
+			data.forEach(function(item) {
+				html += '<option value="' + item.i_hobby + '">' + item.hnm + '</option>'
+				//html += `<option value="${item.i_hobby}">${item.hnm}</option>`
+			})
+			frm.i_hobby.innerHTML = html
 			
 		}).catch(function(error) {
 			console.log(error)

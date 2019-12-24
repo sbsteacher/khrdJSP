@@ -329,8 +329,7 @@ public class DBApi {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
-		
+				
 		String sql = " select A.* " + 
 				" from t_hobby A " + 
 				" left join t_member_hobby B " + 
