@@ -319,6 +319,32 @@ public class DBApi {
 		
 		return list;
 	}
+	
+	public static int delMemberHobby(MemberHobbyVO param) {
+		int result = 0;
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " DELETE FROM t_member_hobby "
+					   + " WHERE i_member = ? and i_hobby = ? ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getI_member());
+			ps.setInt(2, param.getI_hobby());
+			
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps);
+		}
+		
+		return result;
+	}
 }
 
 

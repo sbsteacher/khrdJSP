@@ -18,7 +18,7 @@
 				<tr>
 					<td>${item.unm }</td>
 					<td>${item.hnm }</td>
-					<td><button>삭제</button></td>
+					<td><button onclick="del(${item.i_member}, ${item.i_hobby })">삭제</button></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -27,8 +27,15 @@
 			<c:if test="${msg != null }">
 				<div class="warning">${msg }</div>
 			</c:if>
+			
+			<form action="cMemberHobby" method="post" id="delFrm">
+				<input type="hidden" name="typ" value="2">
+				<input type="hidden" name="i_member">
+				<input type="hidden" name="i_hobby">
+			</form>
+			
 			<form action="cMemberHobby" method="post" id="frm" onsubmit="return chk()">
-				<input type="hidden2" name="typ" value="1">
+				<input type="hidden" name="typ" value="1">
 				<div>
 					멤버 : 
 					<select name="i_member" onchange="memberChange(this.value)">
@@ -54,6 +61,12 @@
 	</div>
 </div>
 <script>
+	function del(i_member, i_hobby) {
+		delFrm.i_member.value = i_member
+		delFrm.i_hobby.value = i_hobby
+		delFrm.submit()
+	}
+
 	function memberChange(v) {
 		location.href='cMemberHobby?i_member=' + v
 	}

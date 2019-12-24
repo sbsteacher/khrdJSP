@@ -40,11 +40,12 @@ public class CMemberHobby extends HttpServlet {
 		String i_member = request.getParameter("i_member");
 		String i_hobby = request.getParameter("i_hobby");
 		
-		
-		
 		int intMember = MyUtils.parseStringToInt(i_member, 0);
 		int intHobby = MyUtils.parseStringToInt(i_hobby, 0);
 		
+		System.out.println("typ : " + typ);
+		System.out.println("i_member : " + i_member);
+		System.out.println("i_hobby : " + i_hobby);
 		
 		if("1".equals(typ)) { //등록
 			if(intMember == 0 || intHobby == 0) {
@@ -67,7 +68,14 @@ public class CMemberHobby extends HttpServlet {
 				
 			}
 		} else if("2".equals(typ)) { //삭제
+			MemberHobbyVO param = new MemberHobbyVO();
+			param.setI_member(intMember);
+			param.setI_hobby(intHobby);
+			int result = DBApi.delMemberHobby(param);
 			
+			if(result != 1) {
+				request.setAttribute("msg", "삭제 할 수 없습니다.");
+			}
 		}
 		
 		doGet(request, response);
