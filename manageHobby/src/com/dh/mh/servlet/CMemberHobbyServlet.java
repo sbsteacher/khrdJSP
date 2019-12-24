@@ -13,7 +13,7 @@ import com.dh.mh.db.DBApi;
 import com.dh.mh.vo.MemberHobbyVO;
 
 @WebServlet("/cMemberHobby")
-public class CMemberHobby extends HttpServlet {
+public class CMemberHobbyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -7,12 +7,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.dh.mh.MyUtils;
 import com.dh.mh.vo.HobbyVO;
 import com.dh.mh.vo.MemberHobbyVO;
 import com.dh.mh.vo.MemberVO;
+import com.google.gson.Gson;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class DBApi {
@@ -318,6 +321,48 @@ public class DBApi {
 		}
 		
 		return list;
+	}
+	
+	public static String getMemberHobbyListJson() {
+		List<Map<String, String>> list = new ArrayList();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " select A.*, B.unm, C.hnm " + 
+				" from t_member_hobby A " + 
+				" inner join t_member B " + 
+				" on A.i_member = B.i_member " + 
+				" inner join t_hobby C " + 
+				" on A.i_hobby = C.i_hobby ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				String i_member = rs.getString("i_member");
+				String i_hobby = rs.getString("i_hobby");
+				String unm = rs.getString("unm");
+				String hnm = rs.getString("hnm");
+					
+				Map<String, String> map = new HashMap();
+				map.put("i_member", i_member);
+				map.put("i_hobby", i_hobby);
+				map.put("unm", unm);
+				map.put("hnm", hnm);
+				list.add(map);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return new Gson().toJson(list);
 	}
 	
 	public static int delMemberHobby(MemberHobbyVO param) {
