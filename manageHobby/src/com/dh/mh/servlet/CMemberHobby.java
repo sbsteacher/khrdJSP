@@ -17,10 +17,15 @@ public class CMemberHobby extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String i_member = request.getParameter("i_member");
+		
 		request.setAttribute("mhList", DBApi.getMemberHobbyList());
 		
 		request.setAttribute("memberList", DBApi.getMemberList());
-		request.setAttribute("hobbyList", DBApi.getHobbyList());
+		if(i_member != null) {
+			int intMember = MyUtils.parseStringToInt(i_member, 0);
+			request.setAttribute("hobbyList", DBApi.getHobbyList(intMember));
+		}
 		
 		request.setAttribute("title", "멤버 취미 등록");
 		request.setAttribute("view", "cMemberHobby");

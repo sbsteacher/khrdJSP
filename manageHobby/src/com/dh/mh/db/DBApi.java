@@ -178,6 +178,48 @@ public class DBApi {
 		return list;
 	}
 	
+	public static List<HobbyVO> getHobbyList(int i_member) {
+		List<HobbyVO> list = new ArrayList();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " select A.* " + 
+				" from t_hobby A " + 
+				" left join t_member_hobby B " + 
+				"	on A.i_hobby = B.i_hobby " + 
+				"	and B.i_member = ? " + 
+				" where B.i_hobby is null " + 
+				" order by A.i_hobby ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, i_member);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int i_hobby = rs.getInt("i_hobby");
+				String hnm = rs.getString("hnm");
+				
+				HobbyVO vo = new HobbyVO();
+				vo.setI_hobby(i_hobby);
+				vo.setHnm(hnm);
+				
+				list.add(vo);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return list;
+	}
+	
 	public static List<MemberVO> getMemberList() {
 		List<MemberVO> list = new ArrayList();
 		
