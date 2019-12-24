@@ -23,6 +23,7 @@ public class CMemberHobby extends HttpServlet {
 		
 		request.setAttribute("memberList", DBApi.getMemberList());
 		if(i_member != null) {
+			request.setAttribute("i_member", i_member);
 			int intMember = MyUtils.parseStringToInt(i_member, 0);
 			request.setAttribute("hobbyList", DBApi.getHobbyList(intMember));
 		}

@@ -31,10 +31,10 @@
 				<input type="hidden2" name="typ" value="1">
 				<div>
 					멤버 : 
-					<select name="i_member">
+					<select name="i_member" onchange="memberChange(this.value)">
 						<option value="0">--선택--</option>
 						<c:forEach var="item" items="${memberList}">
-							<option value="${item.i_member }">${item.unm }</option>
+							<option value="${item.i_member }" ${item.i_member == i_member ? 'selected' : ''}>${item.unm }</option>
 						</c:forEach>						
 					</select>
 				</div>
@@ -54,6 +54,10 @@
 	</div>
 </div>
 <script>
+	function memberChange(v) {
+		location.href='cMemberHobby?i_member=' + v
+	}
+	
 	function chk() {
 		if(frm.i_member.value == '0') {
 			alert('멤버를 선택해 주세요')
