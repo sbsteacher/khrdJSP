@@ -71,8 +71,8 @@
 			
 			var html = '<option value="0">--선택--</option>'
 			data.forEach(function(item) {
-				html += '<option value="' + item.i_hobby + '">' + item.hnm + '</option>'
-				//html += `<option value="${item.i_hobby}">${item.hnm}</option>`
+				//html += '<option value="' + item.i_hobby + '">' + item.hnm + '</option>'
+				html += `<option value="${ '${item.i_hobby}' }">${ '${item.hnm}' }</option>`
 			})
 			frm.i_hobby.innerHTML = html
 			
