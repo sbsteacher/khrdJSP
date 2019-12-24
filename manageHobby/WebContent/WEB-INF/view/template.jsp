@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <title>${title}</title>
 <link type="text/css" rel="stylesheet" href="res/css/common.css">
+<script type="text/javascript" src="res/js/axios.min.js"></script>
 </head>
 <body>
 	<form id="logoutForm" action="home" method="post">		

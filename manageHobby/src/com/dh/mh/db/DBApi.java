@@ -323,44 +323,46 @@ public class DBApi {
 		return list;
 	}
 	
-	public static String getMemberHobbyListJson() {
+	public static String getMemberHobbyListJson(int i_member) {
 		List<Map<String, String>> list = new ArrayList();
 		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = " select A.*, B.unm, C.hnm " + 
-				" from t_member_hobby A " + 
-				" inner join t_member B " + 
-				" on A.i_member = B.i_member " + 
-				" inner join t_hobby C " + 
-				" on A.i_hobby = C.i_hobby ";
+		
+		String sql = " select A.* " + 
+				" from t_hobby A " + 
+				" left join t_member_hobby B " + 
+				"	on A.i_hobby = B.i_hobby " + 
+				"	and B.i_member = ? " + 
+				" where B.i_hobby is null " + 
+				" order by A.i_hobby ";
 		
 		try {
 			con = getCon();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, i_member);
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				String i_member = rs.getString("i_member");
 				String i_hobby = rs.getString("i_hobby");
-				String unm = rs.getString("unm");
 				String hnm = rs.getString("hnm");
-					
+				
 				Map<String, String> map = new HashMap();
-				map.put("i_member", i_member);
-				map.put("i_hobby", i_hobby);
-				map.put("unm", unm);
+				
+				map.put("i_hobby", i_hobby);				
 				map.put("hnm", hnm);
 				list.add(map);
 			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(con, ps, rs);
 		}
+		
 		
 		return new Gson().toJson(list);
 	}

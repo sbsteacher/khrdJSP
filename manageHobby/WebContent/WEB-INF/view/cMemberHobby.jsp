@@ -68,7 +68,14 @@
 	}
 
 	function memberChange(v) {
-		location.href='cMemberHobby?i_member=' + v
+		axios.get('mhJson?i_member=' + v).then(function(result) {
+			
+			var data = result.data
+			console.log(JSON.stringify(data))
+			
+		}).catch(function(error) {
+			console.log(error)
+		})
 	}
 	
 	function chk() {
